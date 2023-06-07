@@ -1,12 +1,22 @@
+/* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
-process.argv.slice(2).forEach((e) => {
-  // Check if the argument is a number and is not negative
-  if (!isNaN(e) && e >= 0) {
-    // Set a timeout to beep after the specified number of seconds
-    setTimeout(() => {
-      process.stdout.write('\x07');
-    }, e * 1000);
+/* eslint-disable no-plusplus */
+// Function to set timers
+function setTimer(intervals) {
+  for (let i = 0; i < intervals.length; i++) {
+    // Convert the interval to a number and check if it's greater than 0
+    const interval = Number(intervals[i]);
+    if (!isNaN(interval) && interval > 0) {
+      setTimeout(() => {
+        console.log('Beep!');
+        process.stdout.write('\x07');
+      }, interval * 1000); // Convert interval to milliseconds
+    }
   }
-  // If no valid numbers are provided, the forEach loop will not set any timers,
-  // so the script will end immediately. This handles the "no numbers are provided" edge case.
-});
+}
+
+// Get command line arguments, skipping the first two (node and script path)
+const args = process.argv.slice(2);
+
+// Set timers for the command line arguments
+setTimer(args);
